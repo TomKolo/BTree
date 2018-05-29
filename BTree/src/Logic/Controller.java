@@ -22,7 +22,6 @@ import java.util.Scanner;
  */
 public class Controller {
 
-    //TODO RANDOM ACCESS FILE ??? should i use it ?
     private RandomAccessFile random_access_node;
     private DataInputStream input_node; //file with nodes
 
@@ -154,8 +153,6 @@ public class Controller {
                         overwrite_record(tmp.offset, tmp, true);
                         add_record(tmp, root_pointer, null);
 
-                    } else {
-                        //System.out.println("powtórka w kluczu");
                     }
                 }
                 print_btree();
@@ -421,7 +418,7 @@ public class Controller {
                 overwrite_node(base_offset, node, true);
                 //node = new Node(node.toByteArray(), base_offset);
                 //record zeruj
-            } else { //node.number_of_keys == 6 (przepełnienie)//co jeśli root ?
+            } else { //node.number_of_keys == 6 (przepełnienie)
                 //kompensuj lub splituj
                 if (!compensate_add(node, prev_node, record, base_offset)) {
                     //splituj
@@ -433,8 +430,7 @@ public class Controller {
             int pointer_to_next_node = node.search(record);
             record = add_record(record, pointer_to_next_node, node);
         }
-        //co zrobić po splicie ?
-        //po compensacji albo dodaniu trzeba wyzerować record
+       
         if ((prev_node == null && record.pointer_to_node != -1 && splited == true) || (prev_node == null && record.pointer_to_node != -1 && node.number_of_keys == 6)) {//split na roocie !! dodaj nowego roota !
             if (splited == true) {//kiedy dodaje 7 rekord
                 int prev_root = root_pointer;
@@ -902,7 +898,7 @@ public class Controller {
             tmp_rec[shift + i] = right_node.pointers_to_records[i];
             tmp_node[shift + i + 1] = right_node.pointers_to_nodes[i + 1];
         }
-        //powinno być przepisane xDDDDD
+        //powinno być przepisane 
 
         //usun rekord !usun rekord 
         int deleted = 0;
